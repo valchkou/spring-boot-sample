@@ -7,8 +7,8 @@ gradlew bootRun
 
 or
 
-gradlew build
+gradlew build  
 java -jar /build/libs/demo.jar
 
 ### View API Endpoints
-localhost:8080 
+localhost:8080
