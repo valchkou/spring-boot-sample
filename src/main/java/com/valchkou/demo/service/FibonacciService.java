@@ -1,6 +1,7 @@
 package com.valchkou.demo.service;
 
 
+import com.valchkou.demo.model.FibonacciResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,17 +16,20 @@ public class FibonacciService {
     }
 
 
-    public long calcNthNumber(long nth, CalcMode mode) {
+    public FibonacciResult calcNthNumber(long nth, CalcMode mode) {
+        long t = System.currentTimeMillis();
+        long result = 0;
         switch(mode) {
             case ITERATIONAL:
-                return iterational(nth);
+                result = iterational(nth);
             case RECURSIVE:
-                return recursive(nth);
+                result = recursive(nth);
             case SCIENTIFIC:
-                return scientific(nth);
+                result = scientific(nth);
             default:
-                return scientific(nth);
+                result = scientific(nth);
         }
+        return new FibonacciResult(result, System.currentTimeMillis() - t);
     }
 
     private long iterational(long n) {

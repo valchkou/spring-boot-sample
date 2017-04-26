@@ -9,16 +9,3 @@ spring:
     name: Spring Boot Demo
     title: Spring Boot Demo
     description: Demo Spring Boot features
-  data:
-    cassandra:
-      keyspace-name: demo
-      contact-points: localhost
-      compression: SNAPPY
-    mongodb:
-      database: demodb
-      hosts: localhost:27017
-      repositories:
-        enabled: true
- 
-logging:
-  path: /tmp/logs

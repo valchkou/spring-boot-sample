@@ -1,12 +1,9 @@
 buildscript {
     ext {
-        springBootVersion = '1.4.2.RELEASE'
+        springBootVersion = '1.5.3.RELEASE'
     }
     repositories {
         mavenCentral()
-        maven { url 'https://repo.spring.io/snapshot' }
-        maven { url 'https://repo.spring.io/milestone' }
-        mavenLocal()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -14,80 +11,25 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: "groovy"
 apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
-def swaggerVersion = '2.6.0'
-
-jar {
-    baseName = 'app'
-    version = '0.0.1-SNAPSHOT'
-}
+version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    maven { url 'https://repo.spring.io/snapshot' }
-    maven { url 'https://repo.spring.io/milestone' }
-    mavenLocal()
-}
-
-sourceSets {
-    main {
-        java {
-            srcDir 'java'
-        }
-    }
-
-    test {
-        groovy {
-            srcDir 'groovy'
-        }
-    }
-
-    integrationTest {
-        java.srcDir file("src/integrationTest/groovy")
-        resources.srcDir file("src/integrationTest/resources")
-    }
-}
-
-task integrationTest(type: Test) {
-    testClassesDir = sourceSets.integrationTest.output.classesDir
-    classpath = sourceSets.integrationTest.runtimeClasspath
 }
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-actuator')
-    compile('org.springframework.cloud:spring-cloud-starter-config')
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile("org.springframework.boot:spring-boot-configuration-processor")
 
-    compile("io.springfox:springfox-swagger2:$swaggerVersion")
-    compile("io.springfox:springfox-swagger-ui:$swaggerVersion")
+    //api documentation
+    compile('io.springfox:springfox-swagger2:2.6.1')
+    compile('io.springfox:springfox-swagger-ui:2.6.1')
 
-    compile 'net.jpountz.lz4:lz4:1.3.0'
-    compile 'org.xerial.snappy:snappy-java:1.1.1.7'
-
-    compile("eu.hinsch:spring-boot-actuator-logview:0.2.12")
-    compile("com.fasterxml.jackson.core:jackson-databind:2.7.5")
-
-
-    testCompile("org.codehaus.groovy:groovy")
-    testCompile 'com.jayway.restassured:rest-assured:2.9.0'
-    testCompile("org.spockframework:spock-core:1.1-groovy-2.4-rc-3")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-    testCompile("cglib:cglib-nodep:3.2.4")
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-
-    integrationTestCompile sourceSets.main.output
-    integrationTestCompile configurations.testCompile
-    integrationTestCompile sourceSets.test.output
-    integrationTestRuntime configurations.testRuntime
-}
-
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Camden.SR2"
-    }
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
