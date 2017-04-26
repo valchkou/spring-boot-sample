@@ -22,6 +22,10 @@ repositories {
     mavenCentral()
 }
 
+jar {
+    archiveName = "demo.jar"
+}
+
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-web')
