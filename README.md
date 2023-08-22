@@ -12,3 +12,5 @@ java -jar /build/libs/demo.jar
 
 ### View API Endpoints
 localhost:8080
+
+deploy instructions
